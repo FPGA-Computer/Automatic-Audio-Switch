@@ -27,9 +27,11 @@
 #define SPI_OVERCLOCK
 
 #ifdef SPI_OVERCLOCK
-#define SPI_BR						SPI_CR1_BR_1
+//SCK=48MHz/8 = 6MHz
+#define SPI_BITRATE				SPI_CR1_BR_1
 #else
-#define SPI_BR						(SPI_CR1_BR_1|SPI_CR1_BR_0)
+// SCK=48MHz/16 = 3MHz
+#define SPI_BITRATE				(SPI_CR1_BR_1|SPI_CR1_BR_0)
 #endif
 
 #define LCD_DMA_IRQ_PRIORITY	2

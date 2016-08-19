@@ -77,11 +77,11 @@ const int16_t Cos_128pt[] =
 
 const uint32_t fft_dBScale[] =
 {
-	0x7FFFFF,0x5A9DF7,0x4026E7,0x2D6A86,0x2026F2,0x16C310,0x101D3F,0xB6873,
-	0x81385,0x5B7B1,0x40C37,0x2DD95,0x20756,0x16FA9,0x10449,0xB844,
-	0x8273,0x5C5A,0x4161,0x2E49,0x20C4,0x1732,0x106C,0xBA0,
-	0x83B,0x5D3,0x420,0x2EB,0x211,0x176,0x109,0xBB,
-	0x84,0x5E,0x42,0x2F,0x21,0x17,0x10
+	0x7FFFFF,0x5A9DF7,0x4026E7,0x2D6A86,0x2026F2,0x0016C310,0x101D3F,0x0B6873,
+	0x081385,0x05B7B1,0x040C37,0x02DD95,0x020756,0x00016FA9,0x010449,0x00B844,
+	0x008273,0x005C5A,0x004161,0x002E49,0x0020C4,0x00001732,0x00106C,0x000BA0,
+	0x00083B,0x0005D3,0x000420,0x0002EB,0x000211,0x00000176,0x000109,0x0000BB,
+	0x000084,0x00005E,0x000042,0x00002F,0x000021,0x00000017,0x000010
 };
 
 const uint8_t fft_noise_floor[] =
@@ -129,14 +129,14 @@ void Draw_VUBars(void)
 	LCD_CORD_XY(VU_COL,VU_L_ROW);
 	LCD_DataMode();
 	
-	Draw_VUBar(Audio_Data.Average_Volume[Audio_Data.Selected*ADC_MAX_CH+Left_Ch],
-						 Audio_Data.Peak_Volume[Audio_Data.Selected*ADC_MAX_CH+Left_Ch]);
+	Draw_VUBar(Audio_Data.Average_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+Left_Ch],
+						 Audio_Data.Peak_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+Left_Ch]);
 	
 	LCD_CORD_XY(VU_COL,VU_R_ROW);
 	LCD_DataMode();
 	
-	Draw_VUBar(Audio_Data.Average_Volume[Audio_Data.Selected*ADC_MAX_CH+Right_Ch],
-						 Audio_Data.Peak_Volume[Audio_Data.Selected*ADC_MAX_CH+Right_Ch]);	
+	Draw_VUBar(Audio_Data.Average_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+Right_Ch],
+						 Audio_Data.Peak_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+Right_Ch]);	
 }
 
 // This sums the raw ADC samples in the buffer
@@ -225,7 +225,7 @@ void Audio_Processing(void)
 		if((Volume != Audio_Detect) && Audio_Data.Detect_Cnt[i])
 			Audio_Data.Detect_Cnt[i]--;
 		
-		Audio_Data.Loudness |= (Volume &0x03)<<(i*2);
+		Audio_Data.Loudness |= (Volume &AUDIO_LOUDNESS_MASK)<<(i*AUDIO_LOUDNESS_BITS);
 	}
 }
 
@@ -241,7 +241,7 @@ void Spectrum(void)
 	else
 		Cur = &Audio_Data.AudioBuffer[ADC_MAX_CH*ADC_BLOCK_SIZE];		
 
-	start = Audio_Data.Selected*ADC_MAX_CH;
+	start = (Audio_Data.Selected)?ADC_CH_PER_SRC:0;
 	DC_Offset = Audio_Data.Averages[start]+Audio_Data.Averages[start+1];
 
 	Sp = &FFT.fft_data[0];
@@ -286,8 +286,8 @@ void Plot_Spectrum(void)
 	// plot VU
 	for(j=0;j<ADC_CH_PER_SRC;j++)
 	{
-		Peak = Audio_Data.Peak_Volume[Audio_Data.Selected+(1-j)];
-		Average = Audio_Data.Average_Volume[Audio_Data.Selected+(1-j)];	
+		Peak = Audio_Data.Peak_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+(1-j)];
+		Average = Audio_Data.Average_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+(1-j)];	
 		
 		if(Peak < Average)
 			Peak = Average;

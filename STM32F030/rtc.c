@@ -85,11 +85,7 @@ void RTC_PrintTime(void)
 		LCD_Puts("12");
 	else
 	{	
-		if((CR & RTC_CR_FMT)&&(Time & RTC_TR_HT))
-			LCD_PutCh('1');		
-		else
-			LCD_PutCh('0'+((Time & RTC_TR_HT)>>20));
-
+		LCD_PutCh('0'+((Time & RTC_TR_HT)>>20));
 		LCD_PutCh('0'+((Time & RTC_TR_HU)>>16));
 	}
 	

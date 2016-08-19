@@ -42,8 +42,9 @@ void SPI_Block_Fill(uint8_t Fill, uint16_t size)
   DMA1_Channel3->CMAR = (uint32_t) &Fill;
   DMA1_Channel3->CNDTR = size;
   
-  // 8-bit memory/peripheral, write, enable
 	SPI_Wait = 1;
+	
+  // 8-bit memory/peripheral, write, complete IRQ, enable
   DMA1_Channel3->CCR = SPI_DMA_PRIORITY|DMA_CCR_DIR|DMA_CCR_TCIE|DMA_CCR_EN;
   SPI_DMA_Wait();  
 }
@@ -53,9 +54,10 @@ void SPI_Block_Write(const uint8_t *ptr, uint16_t size)
   DMA1_Channel3->CCR &= ~DMA_CCR_EN;
   DMA1_Channel3->CMAR = (uint32_t) ptr;
   DMA1_Channel3->CNDTR = size;
+	
   SPI_Wait = 1;
 	
-  // 8-bit memory/peripheral, memory increment, write, enable, complete IRQ
+  // 8-bit memory/peripheral, memory increment, write, complete IRQ, enable
   DMA1_Channel3->CCR = SPI_DMA_PRIORITY|DMA_CCR_MINC|DMA_CCR_DIR|DMA_CCR_TCIE|DMA_CCR_EN;
   SPI_DMA_Wait();  
 }
@@ -70,10 +72,10 @@ void LCD_Init(void)
 	RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
 	
 	// SPI Master, Software NSS, Slave select, MSB first, 
-	// SCK=48MHz/16=3MHz, CPOL=0, CHPA=0
-	SPI1->CR1 = SPI_CR1_MSTR|SPI_CR1_SSM|SPI_CR1_SSI|SPI_BR;
+	// SCK=48MHz/8 = 6MHz (SPI_OVERCLOCK) or /16, CPOL=0, CHPA=0
+	SPI1->CR1 = SPI_CR1_MSTR|SPI_CR1_SSM|SPI_CR1_SSI|SPI_BITRATE;
 	
-	// Data size = 8-bit, Motorola SPI mode, No NSS
+	// Data size = 8-bit, Motorola SPI mode, No NSS, DMA
 	SPI1->CR2 = SPI_CR2_DS_2|SPI_CR2_DS_1|SPI_CR2_DS_0|SPI_CR2_TXDMAEN;	
 
 	// Enable SPI
@@ -82,7 +84,7 @@ void LCD_Init(void)
 	NVIC_SetPriority(DMA1_Ch2_3_DMA2_Ch1_2_IRQn,LCD_DMA_IRQ_PRIORITY);
   NVIC_EnableIRQ(DMA1_Ch2_3_DMA2_Ch1_2_IRQn);
 	
-	// DMA Ch3 - SPI
+	// DMA Ch3: destination = SPI data register
 	DMA1_Channel3->CPAR = (uint32_t) &SPI1->DR;
 
   LCD_CmdMode();
@@ -94,9 +96,12 @@ void LCD_Init(void)
 
 void LCD_CORD_XY(uint8_t X, uint8_t Y)
 {
+	uint8_t LCD_Move[2];
+	LCD_Move[0]= LCD_Addr_X | (X & 0x7f);
+	LCD_Move[1]= LCD_Addr_Y | (Y & 0x07);
+	
   LCD_CmdMode();
-  SPI_ByteWrite(LCD_Addr_X | (X & 0x7f));
-  SPI_ByteWrite(LCD_Addr_Y | (Y & 0x07));
+	SPI_Block_Write(LCD_Move,sizeof(LCD_Move));
  }
 
 // Text
@@ -119,7 +124,7 @@ void Cursor_NewLine(void)
   CurCol=0;
   CurRow++;
 
-  if(CurRow==LCD_MAXROW)
+  if(CurRow>=LCD_MAXROW)
   CurRow=0;
  }
 
@@ -142,7 +147,7 @@ void LCD_PutCh(uint8_t Ch)
       SPI_Block_Write(ptr,Width);
     else if(TextAttr==TextAttr_Invert)      
       for(i=Width;i;i--)
-				SPI_ByteWrite(*ptr++);
+				SPI_ByteWrite(~*ptr++);
 
     if(!(Ch & 0x80))
       SPI_ByteWrite((TextAttr==TextAttr_Invert)?0xff:0);

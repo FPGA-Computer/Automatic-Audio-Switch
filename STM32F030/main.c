@@ -46,7 +46,9 @@ int main(void)
 		}
 		
 		if(FIFO_ReadAvail((FIFO*)IR_Buf))
+		{
 			Getc((FIFO*)IR_Buf);
+		}
 	}
 }
 
@@ -66,7 +68,7 @@ void UpdateDisplay(void)
 				Draw_VUBars();	
 				break;
 			case Spectrum_Mode:
-				if(!(Audio_Data.Loudness & (0x03<<Audio_Data.Selected*2)))
+				if(!(Audio_Data.Loudness & (AUDIO_LOUDNESS_MASK<<Audio_Data.Selected*ADC_CH_PER_SRC)))
 					Blank_Spectrum();
 				else 				
 				{
@@ -133,14 +135,17 @@ void Update_AudioSource(void)
 		for(i=0;i<ADC_MAX_SRC;i++)
 		{
 			LCD_Moveto(i*AUDIO_SRC_COL,AUDIO_SRC_ROW);
-			LCD_PutCh(Audio_Detect_Char[(Audio_Data.Loudness>>(i*2))&0x03]);	
+			LCD_PutCh(Audio_Detect_Char[AUDIO_LOUDNESS_CH(i)]);	
 		}
 	}
 	else
 	{
 		LCD_Moveto(AUDIO_SRC_ALT_COL,AUDIO_SRC_ALT_ROW);
 		LCD_PutCh(SYMBOL_SPEAKER);
-		LCD_PutCh(Audio_Detect_Char[(Audio_Data.Loudness>>(Audio_Data.Selected*2))&0x03]);
+		LCD_PutCh(Audio_Detect_Char[AUDIO_LOUDNESS_CH(i)]);
 		LCD_Puts(Audio_Data.Selected?AUDIO_SRC1_LABEL:AUDIO_SRC0_LABEL);
 	}
+	
+	// MUX control
+	GPIOA->BSRR = (Audio_Data.Selected)?PIN_SET(CTRL0):PIN_CLR(CTRL0);
 }

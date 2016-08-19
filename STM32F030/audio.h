@@ -45,8 +45,12 @@ enum Audio_Ch
 { Left_Ch=0, Right_Ch=1 };
 
 enum Audio_Loudness
-{ Audio_None, Audio_Sporadic, Audio_Detect, Audio_Loud };
+{ Audio_None=0, Audio_Sporadic, Audio_Detect, Audio_Loud };
 
+#define AUDIO_LOUDNESS_MASK Audio_Loud
+#define AUDIO_LOUDNESS_BITS 2
+
+#define AUDIO_LOUDNESS_CH(X) ((Audio_Data.Loudness>>((X)*AUDIO_LOUDNESS_BITS))&AUDIO_LOUDNESS_MASK)
 
 typedef struct
 {
@@ -56,7 +60,7 @@ typedef struct
 	int16_t 	Averages[ADC_MAX_CH];
 	uint8_t 	Detect_Cnt[ADC_MAX_SRC];
 	uint8_t 	Loud_Cnt[ADC_MAX_SRC];
-	uint8_t		Loudness:ADC_MAX_SRC*2;
+	uint8_t		Loudness:ADC_MAX_SRC*AUDIO_LOUDNESS_BITS;
 	uint8_t		Display_Mode:2;
 	uint8_t		Selected:1;
 	uint8_t		Spectrum_Blank:1;

@@ -93,5 +93,4 @@ void DMA1_Channel1_IRQHandler(void)
 	}
 	
 	Audio_Data.Conv_Done = 1;
-	GPIOA->BSRR = PIN_SET(CTRL0);		
 }
