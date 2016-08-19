@@ -67,11 +67,14 @@ enum Display_Mode
 #define SCREEN_REFRESH_RATE		15UL
 #define TICK_RELOAD						(ADC_DMA_IRQ_RATE/SCREEN_REFRESH_RATE)
 
-#define AUDIO_TIMEOUT					200
-#define LOUDNESS_TIMEOUT			200
+#define AUDIO_TIMEOUT					1000
+#define LOUDNESS_TIMEOUT			1000
 #define AUDIO_COUNTDOWN_TH		(AUDIO_TIMEOUT/2)				
 
-#define AUDIO_THRESHOLD 			0x94L
+//#define AUDIO_THRESHOLD 			0x94L
+
+// relay threshold
+#define AUDIO_THRESHOLD 			0x01c0L
 #define LOUDNESS_THRESHOLD		0x10FE
 
 extern uint32_t Prev_Time;

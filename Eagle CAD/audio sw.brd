@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.005" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mm" style="lines" multiple="1" display="no" altdistance="0.005" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -50,7 +50,7 @@
 <layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
 <layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
-<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
@@ -123,7 +123,6 @@
 <layer number="219" name="219bmp" color="20" fill="1" visible="no" active="no"/>
 <layer number="220" name="220bmp" color="21" fill="1" visible="no" active="no"/>
 <layer number="221" name="221bmp" color="22" fill="1" visible="no" active="no"/>
-<layer number="222" name="222bmp" color="23" fill="1" visible="no" active="no"/>
 <layer number="223" name="223bmp" color="24" fill="1" visible="no" active="no"/>
 <layer number="224" name="224bmp" color="25" fill="1" visible="no" active="no"/>
 <layer number="248" name="Housing" color="7" fill="1" visible="yes" active="yes"/>
@@ -243,7 +242,7 @@ http://www.weartronics.com/</description>
 Operational amplifiers,  comparators, voltage regulators, ADCs, DACs, etc.&lt;p&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
 <packages>
-<package name="TO92">
+<package name="TO92-CLP">
 <description>&lt;b&gt;TO-92&lt;/b&gt;</description>
 <wire x1="-2.095" y1="-1.651" x2="-0.7869" y2="2.5484" width="0.1524" layer="21" curve="-111.097684"/>
 <wire x1="0.7869" y1="2.5484" x2="2.095" y2="-1.651" width="0.1524" layer="21" curve="-111.097684"/>
@@ -2305,7 +2304,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="35.179" y="29.845" size="0.6096" layer="25" ratio="15"/>
 <attribute name="VALUE" x="31.115" y="29.591" size="1.27" layer="27" rot="R270"/>
 </element>
-<element name="U2" library="linear" package="TO92" value="LM340LZ-05" x="41.402" y="29.21" smashed="yes" rot="R90">
+<element name="U2" library="linear" package="TO92-CLP" value="LM340LZ-05" x="41.402" y="29.21" smashed="yes" rot="R90">
 <attribute name="NAME" x="44.577" y="30.353" size="0.6096" layer="25" ratio="15" rot="R180"/>
 <attribute name="VALUE" x="42.672" y="32.131" size="0.4064" layer="27" ratio="10" rot="R90"/>
 </element>
@@ -2321,7 +2320,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="43.229" y="30.3515" size="0.6096" layer="26" font="vector" ratio="15" rot="MR180"/>
 <attribute name="VALUE" x="42.594" y="33.6565" size="0.4064" layer="28" font="vector" ratio="10" rot="MR180"/>
 </element>
-<element name="U3" library="linear" package="TO92" value="" x="40.767" y="22.987" smashed="yes" rot="R270">
+<element name="U3" library="linear" package="TO92-CLP" value="" x="40.767" y="22.987" smashed="yes" rot="R270">
 <attribute name="NAME" x="42.926" y="20.447" size="0.6096" layer="25" ratio="15"/>
 <attribute name="VALUE" x="39.497" y="20.066" size="1.27" layer="27" ratio="10" rot="R270"/>
 </element>

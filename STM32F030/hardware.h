@@ -77,23 +77,6 @@ enum ADC_Chs
 #define IR_PIN			PB1
 #define IR_INP			(IR_PORT->IDR & (1<<IR_PIN))			
 
-#ifdef DBG_SHELL
-#include "serial.h"
-#include "shell.h"
-
-#define GPIOA_MODER (PIN_ALT(PA14)|PIN_ALT(PA13)|				/* SWCLK, SWDIO */	\
-										 PIN_ALT(PA10)|PIN_ALT(PA9)|				/* RxD, TxD			*/	\
-										 PIN_ALT(PA7)|PIN_OUTPUT(PA6)|			/* MOSI, D/C 		*/	\
-										 PIN_ALT(PA5)|PIN_ANALOG(PA4)|			/* SCK ???			*/	\
-										 PIN_ANALOG(PA3)|PIN_ANALOG(PA2)|		/* L0, R0				*/	\
-		                 PIN_ANALOG(PA1)|PIN_ANALOG(PA0))		/* L1, R1				*/
-
-#define CTRL1				0
-#define CTRL0				0
-
-#define GPIOA_AFR1	 (PIN_AFRH(PA10,1)|PIN_AFRH(PA9,1))	/* RxD, TxD 		*/
-
-#else
 #define GPIOA_MODER (PIN_ALT(PA14)|PIN_ALT(PA13)|				/* SWCLK, SWDIO */	\
 										 PIN_OUTPUT(PA10)|PIN_OUTPUT(PA9)|	/* CTRL1, CTRL0	*/	\
 										 PIN_ALT(PA7)|PIN_OUTPUT(PA6)|			/* MOSI, D/C 		*/	\
@@ -105,6 +88,6 @@ enum ADC_Chs
 #define CTRL0				PA9
 
 #define GPIOA_AFR1	 0
-#endif
+
 
 #endif

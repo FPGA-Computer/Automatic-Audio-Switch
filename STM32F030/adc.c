@@ -49,6 +49,9 @@ void ADC_Init(void)
 	// Sampling time = 13.5 ADClk = 1.125us
 	ADC1->SMPR = ADC_SMPR_SMP_1;
 	
+	// Sampling time = 28.5 ADClk = 2.375us	
+	//ADC1->SMPR = ADC_SMPR_SMP_1|ADC_SMPR_SMP_0;
+	
   TIM3->ARR = ADC_SAMPLE_PERIOD-1;	
   // TIM3 /1, update request, enable TIM3
   TIM3->CR1 = TIM_CR1_URS|TIM_CR1_CEN;

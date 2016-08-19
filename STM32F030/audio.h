@@ -52,16 +52,22 @@ enum Audio_Loudness
 
 #define AUDIO_LOUDNESS_CH(X) ((Audio_Data.Loudness>>((X)*AUDIO_LOUDNESS_BITS))&AUDIO_LOUDNESS_MASK)
 
+enum Audio_State
+{
+	Audio_Idle = 0, Audio_PC_Norm, Audio_PC_Loud, Audio_TV_Norm, Audio_TV_Loud
+};
+
 typedef struct
 {
 	int16_t		AudioBuffer[ADC_MAX_CH*ADC_AUDIO_SAMPLES];
 	uint32_t	Average_Volume[ADC_MAX_AUD_CH];
 	uint32_t	Peak_Volume[ADC_MAX_AUD_CH];
 	int16_t 	Averages[ADC_MAX_CH];
-	uint8_t 	Detect_Cnt[ADC_MAX_SRC];
-	uint8_t 	Loud_Cnt[ADC_MAX_SRC];
+	uint16_t 	Detect_Cnt[ADC_MAX_SRC];
+	uint16_t 	Loud_Cnt[ADC_MAX_SRC];
 	uint8_t		Loudness:ADC_MAX_SRC*AUDIO_LOUDNESS_BITS;
 	uint8_t		Display_Mode:2;
+	uint8_t		State:3;
 	uint8_t		Selected:1;
 	uint8_t		Spectrum_Blank:1;
 	volatile 	uint8_t Conv_Done:1;
