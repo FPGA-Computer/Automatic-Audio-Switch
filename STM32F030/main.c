@@ -127,8 +127,16 @@ void Draw_AudioSource_Label(void)
 void Audio_StateMachine(void)
 {
 	const uint32_t State_IO[] =
-	{ PIN_SET(CTRL0),PIN_SET(CTRL0),PIN_SET(CTRL0),
-		PIN_CLR(CTRL0),PIN_CLR(CTRL0)
+	{ 
+		
+//		PIN_SET(CTRL0),PIN_SET(CTRL0),PIN_SET(CTRL0),
+//		PIN_CLR(CTRL0),PIN_CLR(CTRL0)
+		
+  	// Loudness protection
+		PIN_SET(CTRL0)|PIN_CLR(CTRL1),
+		PIN_SET(CTRL0)|PIN_CLR(CTRL1),PIN_CLR(CTRL0)|PIN_SET(CTRL1),
+		PIN_CLR(CTRL0)|PIN_CLR(CTRL1),PIN_SET(CTRL0)|PIN_SET(CTRL1)
+		
 	};
 	
 //	uint8_t OldState = Audio_Data.State;

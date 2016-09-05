@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.001" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mm" style="lines" multiple="1" display="no" altdistance="0.001" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -123,7 +123,6 @@
 <layer number="219" name="219bmp" color="20" fill="1" visible="no" active="no"/>
 <layer number="220" name="220bmp" color="21" fill="1" visible="no" active="no"/>
 <layer number="221" name="221bmp" color="22" fill="1" visible="no" active="no"/>
-<layer number="222" name="222bmp" color="23" fill="1" visible="no" active="no"/>
 <layer number="223" name="223bmp" color="24" fill="1" visible="no" active="no"/>
 <layer number="224" name="224bmp" color="25" fill="1" visible="no" active="no"/>
 <layer number="248" name="Housing" color="7" fill="1" visible="no" active="yes"/>
@@ -1813,172 +1812,217 @@ Please make sure your boards conform to these design rules.</description>
 <element name="R5" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="3.2258" y="12.7254" smashed="yes" rot="R90">
 <attribute name="NAME" x="2.7632" y="14.2541" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="5.3133" y="11.4754" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="3.2258" y="12.7254" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R1" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="11.9634" smashed="yes">
 <attribute name="VALUE" x="4.2364" y="9.8759" size="0.4064" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="11.9634" size="1.778" layer="27" display="off"/>
 </element>
 <element name="R13" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="7.747" y="12.5222" smashed="yes" rot="R90">
 <attribute name="NAME" x="7.132" y="14.1271" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="9.8345" y="11.2722" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="7.747" y="12.5222" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R9" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="13.4874" smashed="yes" rot="R180">
 <attribute name="NAME" x="5.4156" y="14.8797" size="0.6096" layer="25" font="vector" ratio="15" rot="R180"/>
 <attribute name="VALUE" x="6.7364" y="15.5749" size="0.4064" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="13.4874" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R6" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="3.2258" y="9.7028" smashed="yes" rot="R270">
 <attribute name="NAME" x="3.3321" y="8.2096" size="0.6096" layer="25" font="vector" ratio="15" rot="R270"/>
 <attribute name="VALUE" x="1.1383" y="10.9528" size="0.4064" layer="27" font="vector" ratio="10" rot="R270"/>
+<attribute name="PARTNO" value="*" x="3.2258" y="9.7028" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="R2" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="10.4394" smashed="yes">
 <attribute name="VALUE" x="4.2364" y="8.3519" size="0.4064" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="10.4394" size="1.778" layer="27" display="off"/>
 </element>
 <element name="R14" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="17.1704" y="9.6012" smashed="yes" rot="R270">
 <attribute name="NAME" x="17.8863" y="9.8606" size="0.6096" layer="25" font="vector" ratio="15" rot="R270"/>
 <attribute name="VALUE" x="15.0829" y="10.8512" size="0.4064" layer="27" font="vector" ratio="10" rot="R270"/>
+<attribute name="PARTNO" value="*" x="17.1704" y="9.6012" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="R10" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="8.9154" smashed="yes" rot="R180">
 <attribute name="NAME" x="6.0252" y="8.2503" size="0.6096" layer="25" font="vector" ratio="15" rot="R180"/>
 <attribute name="VALUE" x="6.7364" y="11.0029" size="0.4064" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="8.9154" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R7" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="3.2258" y="5.588" smashed="yes" rot="R90">
 <attribute name="NAME" x="3.2211" y="7.1066" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="5.3133" y="4.338" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="3.2258" y="5.588" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R3" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="4.8006" smashed="yes">
 <attribute name="NAME" x="4.338" y="6.9643" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="4.2364" y="2.7131" size="0.4064" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="4.8006" size="1.778" layer="27" display="off"/>
 </element>
 <element name="R15" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="7.747" y="5.5626" smashed="yes" rot="R90">
 <attribute name="NAME" x="6.878" y="6.9643" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="9.8345" y="4.3126" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="7.747" y="5.5626" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R11" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="6.3246" smashed="yes" rot="R180">
 <attribute name="NAME" x="6.7364" y="5.5071" size="0.6096" layer="26" font="vector" ratio="15" rot="MR180"/>
 <attribute name="VALUE" x="6.7364" y="8.4121" size="0.4064" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="6.3246" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R8" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="3.2258" y="2.5654" smashed="yes" rot="R270">
 <attribute name="VALUE" x="1.1383" y="3.8154" size="0.4064" layer="27" font="vector" ratio="10" rot="R270"/>
+<attribute name="PARTNO" value="*" x="3.2258" y="2.5654" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="R4" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="3.2766" smashed="yes">
 <attribute name="VALUE" x="4.2364" y="1.1891" size="0.4064" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="3.2766" size="1.778" layer="27" display="off"/>
 </element>
 <element name="R16" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="17.0942" y="4.191" smashed="yes" rot="R90">
 <attribute name="NAME" x="18.4865" y="3.3982" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="19.1817" y="2.941" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="17.0942" y="4.191" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R12" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="5.4864" y="1.7526" smashed="yes" rot="R180">
 <attribute name="NAME" x="6.3808" y="0.9351" size="0.6096" layer="25" font="vector" ratio="15" rot="R180"/>
 <attribute name="VALUE" x="6.7364" y="3.8401" size="0.4064" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="5.4864" y="1.7526" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="U6" library="Misc Logic" package="TSSOP16" value="74HC4052PW" x="22.7584" y="6.9596" smashed="yes" rot="R180">
 <attribute name="NAME" x="25.654" y="9.6774" size="0.6096" layer="25" ratio="15"/>
 <attribute name="VALUE" x="30.2514" y="7.5946" size="0.4064" layer="27" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="22.7584" y="6.9596" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="U4" library="linear" package="SO08" value="NE5532N" x="12.4714" y="11.2776" smashed="yes" rot="R270">
 <attribute name="NAME" x="9.1186" y="14.097" size="0.6096" layer="25" ratio="15"/>
 <attribute name="VALUE" x="11.8364" y="14.8336" size="0.4064" layer="27" ratio="10" rot="R270"/>
+<attribute name="PARTNO" value="*" x="12.4714" y="11.2776" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="U5" library="linear" package="SO08" value="NE5532N" x="12.4714" y="4.191" smashed="yes" rot="R270">
 <attribute name="NAME" x="9.1186" y="6.858" size="0.6096" layer="25" ratio="15"/>
 <attribute name="VALUE" x="11.8364" y="7.747" size="0.4064" layer="27" ratio="10" rot="R270"/>
+<attribute name="PARTNO" value="*" x="12.4714" y="4.191" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="C5" library="ipc-7351-capacitor" package="CAPC1608X92N" value="0.1uF" x="17.1704" y="12.6746" smashed="yes" rot="R90">
 <attribute name="NAME" x="16.7332" y="14.2041" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="19.2079" y="11.4246" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="17.1704" y="12.6746" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="C6" library="ipc-7351-capacitor" package="CAPC1608X92N" value="0.1uF" x="7.747" y="9.017" smashed="yes" rot="R90">
 <attribute name="NAME" x="7.2844" y="10.4449" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="9.7845" y="7.767" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="7.747" y="9.017" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="C8" library="ipc-7351-capacitor" package="CAPC1608X92N" value="0.1uF" x="7.747" y="2.1336" smashed="yes" rot="R90">
 <attribute name="NAME" x="7.2844" y="3.5361" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="9.7845" y="0.8836" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="7.747" y="2.1336" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="C7" library="ipc-7351-capacitor" package="CAPC1608X92N" value="0.1uF" x="15.875" y="7.3152" smashed="yes">
 <attribute name="NAME" x="13.482" y="7.0667" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="14.625" y="5.2777" size="0.4064" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="15.875" y="7.3152" size="1.778" layer="27" display="off"/>
 </element>
 <element name="C9" library="ipc-7351-capacitor" package="CAPC1608X92N" value="0.1uF" x="26.7208" y="3.429" smashed="yes" rot="R90">
 <attribute name="NAME" x="27.0963" y="0.782" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="28.7583" y="2.179" size="0.4064" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="26.7208" y="3.429" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="C10" library="ipc-7351-capacitor" package="CAPC1608X92N" value="0.1uF" x="20.3454" y="11.4046" smashed="yes">
 <attribute name="NAME" x="18.8413" y="9.8752" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="19.0954" y="9.3671" size="0.4064" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="20.3454" y="11.4046" size="1.778" layer="27" display="off"/>
 </element>
 <element name="JP1" library="Misc Conn" package="1X06" value="" x="1.27" y="7.62" smashed="yes" rot="R270">
 <attribute name="NAME" x="2.794" y="0.3302" size="0.6096" layer="25" ratio="15"/>
 <attribute name="VALUE" x="-1.905" y="15.24" size="1.27" layer="27" rot="R270"/>
+<attribute name="PARTNO" value="*" x="1.27" y="7.62" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="JP2" library="pinhead-1" package="2X06" value="" x="33.02" y="7.62" smashed="yes" rot="R270">
 <attribute name="NAME" x="30.226" y="5.334" size="0.6096" layer="25" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="28.575" y="15.24" size="1.27" layer="27" rot="R270"/>
+<attribute name="PARTNO" value="*" x="33.02" y="7.62" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="R17" library="ipc-7351-resistor" package="RESC1608X55N" value="1K" x="29.7688" y="3.429" smashed="yes" rot="R90">
 <attribute name="NAME" x="30.0943" y="0.1978" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="31.8563" y="2.179" size="1.27" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="29.7688" y="3.429" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R18" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="28.2448" y="3.429" smashed="yes" rot="R90">
 <attribute name="NAME" x="28.5449" y="0.1978" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="30.3323" y="2.179" size="1.27" layer="27" font="vector" ratio="10" rot="R90"/>
+<attribute name="PARTNO" value="*" x="28.2448" y="3.429" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R19" library="ipc-7351-resistor" package="RESC2012X70N" value="33R" x="28.7274" y="11.811" smashed="yes" rot="R180">
 <attribute name="NAME" x="28.6748" y="10.3647" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="30.2024" y="14.0985" size="1.27" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="28.7274" y="11.811" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R20" library="ipc-7351-resistor" package="RESC2012X70N" value="33R" x="28.7274" y="8.9662" smashed="yes" rot="R180">
 <attribute name="NAME" x="28.7002" y="7.4183" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="30.2024" y="11.2537" size="1.27" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="28.7274" y="8.9662" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C1" library="ipc-7351-capacitor" package="CAPMP6032X280N" value="22uF" x="28.1178" y="6.4262" smashed="yes" rot="MR90">
+<element name="C1" library="ipc-7351-capacitor" package="CAPMP6032X280N" value="22uF/16V" x="28.1178" y="6.4262" smashed="yes" rot="MR90">
 <attribute name="NAME" x="30.5853" y="4.2127" size="0.6096" layer="26" font="vector" ratio="15" rot="MR90"/>
 <attribute name="VALUE" x="24.3803" y="4.2127" size="1.27" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="PARTNO" value="*" x="28.1178" y="6.4262" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="C2" library="ipc-7351-capacitor" package="CAPMP6032X280N" value="22uF" x="21.1074" y="10.8204" smashed="yes" rot="MR270">
+<element name="C2" library="ipc-7351-capacitor" package="CAPMP6032X280N" value="22uF/16V" x="21.1074" y="10.8204" smashed="yes" rot="MR270">
 <attribute name="NAME" x="18.6399" y="13.0339" size="0.6096" layer="26" font="vector" ratio="15" rot="MR270"/>
 <attribute name="VALUE" x="24.8449" y="13.0339" size="1.27" layer="28" font="vector" ratio="10" rot="MR270"/>
+<attribute name="PARTNO" value="*" x="21.1074" y="10.8204" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
-<element name="R21" library="ipc-7351-resistor" package="RESC1608X55N" value="3K92" x="5.0038" y="9.7028" smashed="yes" rot="MR90">
+<element name="R21" library="ipc-7351-resistor" package="RESC1608X55N" value="4K7" x="5.0038" y="9.7028" smashed="yes" rot="MR90">
 <attribute name="NAME" x="6.1776" y="11.4347" size="0.6096" layer="26" font="vector" ratio="15" rot="MR0"/>
 <attribute name="VALUE" x="2.9163" y="8.4528" size="1.27" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="PARTNO" value="*" x="5.0038" y="9.7028" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="R22" library="ipc-7351-resistor" package="RESC1608X55N" value="3K92" x="3.4798" y="9.7028" smashed="yes" rot="MR90">
+<element name="R22" library="ipc-7351-resistor" package="RESC1608X55N" value="4K7" x="3.4798" y="9.7028" smashed="yes" rot="MR90">
 <attribute name="NAME" x="4.3742" y="11.4347" size="0.6096" layer="26" font="vector" ratio="15" rot="MR0"/>
 <attribute name="VALUE" x="1.3923" y="8.4528" size="1.27" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="PARTNO" value="*" x="3.4798" y="9.7028" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="R23" library="ipc-7351-resistor" package="RESC1608X55N" value="3K92" x="5.0292" y="2.4892" smashed="yes" rot="MR90">
+<element name="R23" library="ipc-7351-resistor" package="RESC1608X55N" value="4K7" x="5.0292" y="2.4892" smashed="yes" rot="MR90">
 <attribute name="NAME" x="6.2284" y="4.2465" size="0.6096" layer="26" font="vector" ratio="15" rot="MR0"/>
 <attribute name="VALUE" x="2.9417" y="1.2392" size="1.27" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="PARTNO" value="*" x="5.0292" y="2.4892" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="R24" library="ipc-7351-resistor" package="RESC1608X55N" value="3K92" x="3.5052" y="2.4892" smashed="yes" rot="MR90">
+<element name="R24" library="ipc-7351-resistor" package="RESC1608X55N" value="4K7" x="3.5052" y="2.4892" smashed="yes" rot="MR90">
 <attribute name="NAME" x="4.3996" y="4.2465" size="0.6096" layer="26" font="vector" ratio="15" rot="MR0"/>
 <attribute name="VALUE" x="1.4177" y="1.2392" size="1.27" layer="28" font="vector" ratio="10" rot="MR90"/>
+<attribute name="PARTNO" value="*" x="3.5052" y="2.4892" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="R25" library="ipc-7351-resistor" package="RESC1608X55N" value="20K" x="28.2702" y="5.715" smashed="yes" rot="R180">
+<element name="R25" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="28.2702" y="5.715" smashed="yes" rot="R180">
 <attribute name="NAME" x="27.5536" y="6.4563" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="29.5202" y="7.8025" size="1.27" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="28.2702" y="5.715" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="R26" library="ipc-7351-resistor" package="RESC1608X55N" value="20K" x="18.6182" y="6.5786" smashed="yes" rot="R270">
+<element name="R26" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="18.6182" y="6.5786" smashed="yes" rot="R270">
 <attribute name="NAME" x="17.9023" y="5.8366" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="16.5307" y="7.8286" size="1.27" layer="27" font="vector" ratio="10" rot="R270"/>
+<attribute name="PARTNO" value="*" x="18.6182" y="6.5786" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="R27" library="ipc-7351-resistor" package="RESC1608X55N" value="20K" x="20.3454" y="12.9286" smashed="yes">
+<element name="R27" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="20.3454" y="12.9286" smashed="yes">
 <attribute name="NAME" x="20.0352" y="13.7461" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="19.0954" y="10.8411" size="1.27" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="20.3454" y="12.9286" size="1.778" layer="27" display="off"/>
 </element>
-<element name="R28" library="ipc-7351-resistor" package="RESC1608X55N" value="20K" x="23.368" y="12.2428" smashed="yes">
+<element name="R28" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="23.368" y="12.2428" smashed="yes">
 <attribute name="NAME" x="26.1573" y="10.6372" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="22.118" y="10.1553" size="1.27" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="23.368" y="12.2428" size="1.778" layer="27" display="off"/>
 </element>
-<element name="R29" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="24.6888" y="13.97" smashed="yes" rot="R180">
+<element name="R29" library="ipc-7351-resistor" package="RESC1608X55N" value="4K7" x="24.6888" y="13.97" smashed="yes" rot="R180">
 <attribute name="NAME" x="26.8685" y="10.6372" size="0.6096" layer="25" font="vector" ratio="15" rot="R90"/>
 <attribute name="VALUE" x="25.9388" y="16.0575" size="1.27" layer="27" font="vector" ratio="10" rot="R180"/>
+<attribute name="PARTNO" value="*" x="24.6888" y="13.97" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="R30" library="ipc-7351-resistor" package="RESC1608X55N" value="10K" x="28.956" y="14.0208" smashed="yes">
+<element name="R30" library="ipc-7351-resistor" package="RESC1608X55N" value="4K7" x="28.956" y="14.0208" smashed="yes">
 <attribute name="NAME" x="28.1632" y="12.7047" size="0.6096" layer="25" font="vector" ratio="15"/>
 <attribute name="VALUE" x="27.706" y="11.9333" size="1.27" layer="27" font="vector" ratio="10"/>
+<attribute name="PARTNO" value="*" x="28.956" y="14.0208" size="1.778" layer="27" display="off"/>
 </element>
-<element name="LICENSE1" library="Misc logo" package="CC-BY-NC-75" value="CC-BY-NC75%" x="19.0754" y="2.8448" rot="MR0"/>
+<element name="LICENSE1" library="Misc logo" package="CC-BY-NC-75" value="CC-BY-NC75%" x="19.0754" y="2.8448" rot="MR0">
+<attribute name="PARTNO" value="*" x="19.0754" y="2.8448" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
 </elements>
 <signals>
 <signal name="N$1">

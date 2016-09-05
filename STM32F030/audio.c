@@ -220,9 +220,12 @@ void Audio_Processing(void)
 				Volume =  Audio_None;
 		}
 		
-		if((Volume != Audio_Loud) && Audio_Data.Loud_Cnt[i])
+		if(Audio_Data.Loud_Cnt[i])
+		{ 
 			Audio_Data.Loud_Cnt[i]--;
-		if((Volume != Audio_Detect) && Audio_Data.Detect_Cnt[i])
+			Volume = Audio_Loud;
+		}
+		else if((Volume != Audio_Detect) && Audio_Data.Detect_Cnt[i])
 			Audio_Data.Detect_Cnt[i]--;
 		
 		Audio_Data.Loudness |= (Volume &AUDIO_LOUDNESS_MASK)<<(i*AUDIO_LOUDNESS_BITS);
