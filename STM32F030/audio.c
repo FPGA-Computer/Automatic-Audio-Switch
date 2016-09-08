@@ -25,34 +25,36 @@
 #include "intfft.h"
 
 Audio_t Audio_Data;
-FFT_t FFT;
+PlotData_t Plot_Data;
 int32_t Peak_Decay;
 
 // 0VU is 1.737V peak, -51 to +3VU in 3dB steps scaled to 2047 
 const uint32_t dB_Table[]=
 {
-	0xC2,0x112,0x183,0x223,0x305,0x444,0x607,0x884,
-	0xC07,0x10FE,0x1800,0x21E7,0x2FE4,0x43A5,0x5F8E,0x86F9,
-	0xBEA8,0x10D50,0x17C6A,ADC_MAX*ADC_BLOCK_SIZE
+	0,
+	0x0000C2,0x000112,0x000183,0x000223,
+	0x000305,0x000444,0x000607,0x000884,
+	0x000C07,0x0010FE,0x001800,0x0021E7,
+	0x002FE4,0x0043A5,0x005F8E,0x0086F9,
+	0x00BEA8,0x010D50,0x017C6A,
+	ADC_MAX*ADC_BLOCK_SIZE
 };
 
-const uint8_t dB_bar_Legend[]=
+const uint32_t fft_dBScale[] =
 {
-	0x78,0x80,0x40,0x38,0x00,0x78,0x80,0x81,
-	0x78,0x00,0x20,0x21,0x00,0x38,0x20,0xfb,
-	0x00,0xb8,0xa8,0xe9,0x00,0x20,0x20,0x01,
-	0xa8,0xa8,0xf8,0x03,0xf8,0xa8,0xe8,0x01,
-	0x00,0x20,0x20,0x01,0xe8,0xa8,0xb8,0x03,
-	0x08,0x08,0xf8,0x01,0x00,0x00,0x00,0x21,
-	0x20,0x00,0xf8,0x03,0xf8,0xa8,0xf8,0x01,
-	0x00,0x00,0x00,0x21,0x20,0x00,0xb8,0xab,
-	0xf8,0x00,0x00,0x01,0x00,0x00,0x00,0x01,
-	0x00,0x00,0xf8,0x8b,0xf8,0x00,0x00,0x01
+	0,
+	0x000002F,0x0000042,0x000005E,0x0000085,
+	0x00000BC,0x000010A,0x0000178,0x0000213,
+	0x00002EF,0x0000425,0x00005DA,0x0000845,
+	0x0000BAE,0x0001080,0x000174E,0x00020EC,
+	0x0002E81,0x00041B1,0x0005CCA,0x0008312,
+	0x000B924,0x0010585,0x0017169,0x00209CE,
+	0x002E112,0x0041124,0x005BEA6,0x0081D59,
+	0x00B7656,0x01030DC,0x016DEC5,0x0204E15,
+	0x02DA1CD,0x04074FC,0x05B0C43,0x0809BCB,
+	0x0B5AA19,0x1009B9C,0x16A77DD,
+	0x1FFFFFF,
 };
-
-const uint8_t dB_bar_off[]= 	{ 0x00,0x00,0x00,0x00 };
-const uint8_t dB_bar_on[]= 		{ 0x00,0x7f,0x7f,0x7f };
-const uint8_t dB_bar_Peak[]= 	{ 0x00,0x3e,0x1c,0x08 };
 
 // Hanning Cosine table
 const int16_t Cos_128pt[] =
@@ -75,24 +77,50 @@ const int16_t Cos_128pt[] =
 	0x04DF,0x03BD,0x02C1,0x01EA,0x013A,0x00B1,0x004E,0x0013,
 };
 
-const uint32_t fft_dBScale[] =
+const uint8_t dB_bar_Legend[]=
 {
-	0x7FFFFF,0x5A9DF7,0x4026E7,0x2D6A86,0x2026F2,0x0016C310,0x101D3F,0x0B6873,
-	0x081385,0x05B7B1,0x040C37,0x02DD95,0x020756,0x00016FA9,0x010449,0x00B844,
-	0x008273,0x005C5A,0x004161,0x002E49,0x0020C4,0x00001732,0x00106C,0x000BA0,
-	0x00083B,0x0005D3,0x000420,0x0002EB,0x000211,0x00000176,0x000109,0x0000BB,
-	0x000084,0x00005E,0x000042,0x00002F,0x000021,0x00000017,0x000010
+	0x78,0x80,0x40,0x38,0x00,0x78,0x80,0x81,
+	0x78,0x00,0x20,0x21,0x00,0x38,0x20,0xfb,
+	0x00,0xb8,0xa8,0xe9,0x00,0x20,0x20,0x01,
+	0xa8,0xa8,0xf8,0x03,0xf8,0xa8,0xe8,0x01,
+	0x00,0x20,0x20,0x01,0xe8,0xa8,0xb8,0x03,
+	0x08,0x08,0xf8,0x01,0x00,0x00,0x00,0x21,
+	0x20,0x00,0xf8,0x03,0xf8,0xa8,0xf8,0x01,
+	0x00,0x00,0x00,0x21,0x20,0x00,0xb8,0xab,
+	0xf8,0x00,0x00,0x01,0x00,0x00,0x00,0x01,
+	0x00,0x00,0xf8,0x8b,0xf8,0x00,0x00,0x01
 };
 
-const uint8_t fft_noise_floor[] =
-{
-	0x68,0x20,0x20,0x10,0x10,0x08,0x04,0x04
-};
+const uint8_t dB_bar_off[]= 	{ 0x00,0x00,0x00,0x00 };
+const uint8_t dB_bar_on[]= 		{ 0x00,0x7f,0x7f,0x7f };
+const uint8_t dB_bar_Peak[]= 	{ 0x00,0x3e,0x1c,0x08 };
 
 void Audio_Init(void)
 {
 	Peak_Decay = dB_Table[dB_TBL_ENTERIES-2]/PEAK_DECAY_SAMPLES;
 	memset(&Audio_Data,0,sizeof(Audio_Data));
+}
+
+// binary search table lookup
+int8_t Lookup(const uint32_t Value, const uint32_t *Table, uint16_t Last)
+{
+  uint16_t Low=0, Mid;
+	
+  while(Low<=Last)
+	{
+		Mid = (Low+Last)/2;
+		
+		if(Table[Mid]<=Value)
+		{
+			if(Value<Table[Mid+1])
+			  return(Mid);
+
+			Low = Mid+1;
+		}
+		else
+			Last = Mid-1;
+	}
+	return(0);
 }
 
 void Draw_VU_Legend(void)
@@ -115,7 +143,7 @@ void Draw_VUBar(int32_t Avg, int32_t Peak)
 	if(Peak < Avg)
 		Peak = Avg;
 	
-  for(i=0;i<dB_TBL_ENTERIES;i++)
+  for(i=1;i<dB_TBL_ENTERIES;i++)
   {
     if((Peak >= dB_Table[i])&(Peak < dB_Table[i+1]))
       SPI_Block_Write(dB_bar_Peak,sizeof(dB_bar_Peak));
@@ -236,8 +264,9 @@ void Spectrum(void)
 {
 	uint16_t i, start, DC_Offset;
 	int16_t *Cur;
-	uint32_t *Mag;
+	uint8_t *Mag;
 	int16comp_t *Sp;
+	uint32_t Magnitude;
 	
 	if(Audio_Data.Conv_HalfDone)
 		Cur = &Audio_Data.AudioBuffer[0];
@@ -247,10 +276,10 @@ void Spectrum(void)
 	start = (Audio_Data.Selected)?ADC_CH_PER_SRC:0;
 	DC_Offset = Audio_Data.Averages[start]+Audio_Data.Averages[start+1];
 
-	Sp = &FFT.fft_data[0];
+	Sp = &Plot_Data.fft_data[0];
 	Cur += start;
 	
-	memset(&FFT,0,sizeof(FFT));
+	memset(&Plot_Data,0,sizeof(Plot_Data));
 	
 	// Mix left/right channels, subtract offset and hanning window	
 	for(i=0;i<ADC_BLOCK_SIZE;i++)
@@ -260,125 +289,88 @@ void Spectrum(void)
 		Cur += ADC_MAX_CH;
 	}
 	
-	int16fft_exec(FFT.fft_data);
+	int16fft_exec(Plot_Data.fft_data);
 	
-	Mag = FFT.fft_mag;
+	Mag = Plot_Data.fft_mag;
 	
 	for(i=0;i< N_FFT / 2;i++)
 	{
-		Sp = &FFT.fft_data[Tbl_brev[i]];
-		*Mag++ = (uint32_t)(Sp->r*Sp->r) + (uint32_t)(Sp->i*Sp->i);
+		Sp = &Plot_Data.fft_data[Tbl_brev[i]];
+		Magnitude = (uint32_t)(Sp->r*Sp->r) + (uint32_t)(Sp->i*Sp->i);
+		*Mag++ = Lookup(Magnitude,fft_dBScale,sizeof(fft_dBScale)/sizeof(uint32_t)-2);		
 	}
+}
+
+void Plot_UV(uint8_t Value, uint8_t X, uint8_t Type)
+{
+  uint8_t Row, Col, Bitmap;
 	
-	// surpress the noise floor
-	for(i=0;i<sizeof(fft_noise_floor);i++)
-	  if(FFT.fft_mag[i] >= fft_noise_floor[i])
-		  FFT.fft_mag[i] -= fft_noise_floor[i];
-		else
-			FFT.fft_mag[i] = 0;
+	Row=Value/SCALE_VU;
+  Bitmap = ((Type==Plot_Average)?BITMAP_VU:BITMAP_PEAK)<<(8-(Value%SCALE_VU)*2);
+	
+	for(Col=SPECTRUM_VU_WIDTH;Col;Col--)
+		Plot_Data.LCD_Buffer[SPECTRUM_ROWS-Row-1][X+Col] |= Bitmap;
+	
+	if(Type==Plot_Average)
+	{
+		while(Row--)
+			for(Col=SPECTRUM_VU_WIDTH;Col;Col--)
+				Plot_Data.LCD_Buffer[SPECTRUM_ROWS-Row-1][X+Col] |= BITMAP_VU;
+	}
+	else if(!(Value%SCALE_VU)&&Row)
+	{			
+		for(Col=SPECTRUM_VU_WIDTH;Col;Col--)
+	    Plot_Data.LCD_Buffer[SPECTRUM_ROWS-Row][X+Col] |= BITMAP_PEAK;
+	}
+}
+
+void Plot_SpectrumBin(uint8_t Value, uint8_t X)
+{
+  uint8_t Row, Bitmap;
+	
+	Row = Value/SCALE_SPECTRUM;
+  Bitmap = BITMAP_SPECTRUM<<(8-(Value%SCALE_SPECTRUM));	
+	Plot_Data.LCD_Buffer[SPECTRUM_ROWS-Row-1][X] |= Bitmap;
+	
+	while(Row--)
+		Plot_Data.LCD_Buffer[SPECTRUM_ROWS-Row-1][X] |= BITMAP_SPECTRUM;	
 }
 
 void Plot_Spectrum(void)
 {
-	uint16_t i,j,k,bm;
-	int16_t l;
-	uint32_t *Mag, Peak, Average;
+	uint8_t update, Peak, Average;
+	uint16_t i, j;
 	
-	memset(FFT.LCD_Buffer,0,sizeof(FFT.LCD_Buffer));
+	update = Audio_Data.Loudness & (AUDIO_LOUDNESS_MASK<<Audio_Data.Selected*ADC_CH_PER_SRC);
+	
+	if(update)
+		Spectrum();
+	
+	memset(Plot_Data.LCD_Buffer,0,sizeof(Plot_Data.LCD_Buffer));
 	
 	// plot VU
 	for(j=0;j<ADC_CH_PER_SRC;j++)
 	{
-		Peak = Audio_Data.Peak_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+(1-j)];
-		Average = Audio_Data.Average_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+(1-j)];	
-		
+		// plot VU
+		Average = Lookup(Audio_Data.Average_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+(1-j)],
+										 dB_Table,sizeof(dB_Table)/sizeof(uint32_t)-2);
+		Peak = Lookup(Audio_Data.Peak_Volume[Audio_Data.Selected*ADC_CH_PER_SRC+(1-j)],
+										 dB_Table,sizeof(dB_Table)/sizeof(uint32_t)-2);	
+			
 		if(Peak < Average)
 			Peak = Average;
-	
-		// Peak -> dB lookup		
-		for(l=dB_TBL_ENTERIES-1;l>=0;l--)
-			if((Peak >= dB_Table[l])&&(Peak <= dB_Table[l+1]))
-				break;
 		
-		i=SPECTRUM_ROWS-l/(LCD_PIX_PER_ROW/2)-1;		
-		bm = 1<<((LCD_PIX_PER_ROW/2-l%(LCD_PIX_PER_ROW/2))*2+1);
-		bm |=	bm>>1;
-			
-		for(k=0;k<SPECTRUM_VU_WIDTH;k++)
-			FFT.LCD_Buffer[i][SPECTRUM_VU_COL+j*(SPECTRUM_VU_WIDTH+1)+k]= bm;			
-
-		// average -> dB lookup
-		for(l=dB_TBL_ENTERIES-1;l>=0;l--)
-		  if(Average >= dB_Table[l])
-				break;
-
-		bm = 0;
-		i=SPECTRUM_ROWS-l/(LCD_PIX_PER_ROW/2)-1;			
-
-		for(k=0;k<(l%(LCD_PIX_PER_ROW/2));k++)
-			bm |= 1<<((LCD_PIX_PER_ROW/2-k)*2+1);
-
-		// Draw remainder	
-		for(k=0;k<SPECTRUM_VU_WIDTH;k++)
-			FFT.LCD_Buffer[i][SPECTRUM_VU_COL+j*(SPECTRUM_VU_WIDTH+1)+k] |= bm;			
-		
-		// draw full column
-		for(i++;i<=SPECTRUM_ROWS;i++)
-			for(k=0;k<SPECTRUM_VU_WIDTH;k++)
-				FFT.LCD_Buffer[i][SPECTRUM_VU_COL+j*(SPECTRUM_VU_WIDTH+1)+k] |= 0xaa;			
+		Plot_UV(Average,SPECTRUM_VU_COL+j*(SPECTRUM_VU_WIDTH+1),Plot_Average);
+		Plot_UV(Peak,SPECTRUM_VU_COL+j*(SPECTRUM_VU_WIDTH+1),Plot_Peak);	
 	}
-
-	#ifdef SPECTRUM_AUTOSCALE
-	// Spectrum width
-	Mag = &FFT.fft_mag[ADC_BLOCK_SIZE/2-1];
 	
-	for(i=ADC_BLOCK_SIZE/2;i;i--)
-	  if(*(Mag--) >=fft_dBScale[sizeof(fft_dBScale)/sizeof(uint32_t)-1])
-			break;
-	
-	// Scaling spectrum display
-	l=(i<SPECTRUM_VU_COL/2)?2:1;
-	#else	
-		l=1;
-	#endif
-		
 	// Plot Spectrum		
-	Mag = &FFT.fft_mag[SPECTRUM_START];	
-	for(j=0;j<SPECTRUM_END;j+=l)
-	{
-		for(i=0;i<SPECTRUM_ROWS;i++)
-		{
-			bm = 0xff;
-			
-			for(k=0;k<LCD_PIX_PER_ROW;k++)
-			{
-			  if(*Mag>=fft_dBScale[i*LCD_PIX_PER_ROW+k])
-					break;
-
-				bm &= ~(1<<k);
-			}
-			FFT.LCD_Buffer[i][j] |= bm;
-			
-			#ifdef SPECTRUM_WIDEBAR
-			FFT.LCD_Buffer[i][j+1] |= bm;
-			#endif
-		}
-		Mag++;
-	}
+	for(i=0;i<SPECTRUM_END;i++)
+		Plot_SpectrumBin(Plot_Data.fft_mag[i],i);
 	
 	LCD_CORD_XY(SPECTRUM_COL,SPECTRUM_ROW);
 	LCD_DataMode();
-	SPI_Block_Write((const uint8_t *)FFT.LCD_Buffer,sizeof(FFT.LCD_Buffer));
+	SPI_Block_Write((const uint8_t *)Plot_Data.LCD_Buffer,sizeof(Plot_Data.LCD_Buffer));
 	Audio_Data.Spectrum_Blank = 0;
 }
 
-void Blank_Spectrum(void)
-{
-	if(!Audio_Data.Spectrum_Blank)
-	{
-		LCD_CORD_XY(SPECTRUM_COL,SPECTRUM_ROW);
-		LCD_DataMode();	
-		SPI_Block_Fill(0,SPECTRUM_ROWS*LCD_MAX_X);
-		Audio_Data.Spectrum_Blank = 1;
-	}
-}

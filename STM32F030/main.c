@@ -68,13 +68,7 @@ void UpdateDisplay(void)
 				Draw_VUBars();	
 				break;
 			case Spectrum_Mode:
-				if(!(Audio_Data.Loudness & (AUDIO_LOUDNESS_MASK<<Audio_Data.Selected*ADC_CH_PER_SRC)))
-					Blank_Spectrum();
-				else 				
-				{
-					Spectrum();
-					Plot_Spectrum();
-				}
+				Plot_Spectrum();
 				break;
 		}	
 	}
@@ -138,9 +132,7 @@ void Audio_StateMachine(void)
 		PIN_CLR(CTRL0)|PIN_CLR(CTRL1),PIN_SET(CTRL0)|PIN_SET(CTRL1)
 		
 	};
-	
-//	uint8_t OldState = Audio_Data.State;
-	
+
 	// State machine for switching
 	switch(Audio_Data.State)
 	{
@@ -155,8 +147,6 @@ void Audio_StateMachine(void)
 				Audio_Data.State = Audio_TV_Loud;
 			else if (AUDIO_LOUDNESS_CH(Source_TV)==Audio_Detect)
 				Audio_Data.State = Audio_TV_Norm;
-//		else
-//  		Audio_Data.State = Audio_Idle;
 			break;
 			
 		case Audio_PC_Norm:
@@ -169,16 +159,11 @@ void Audio_StateMachine(void)
 				Audio_Data.State = Audio_Idle;
 			break;
 	}
-	
-	// if(Audio_Data.State!=OldState)
-	//{
-	// State -> MUX setting
+
 	GPIOA->BSRR = State_IO[Audio_Data.State];
 	
 	Audio_Data.Selected = ((Audio_Data.State == Audio_TV_Norm)||
 												 (Audio_Data.State == Audio_TV_Loud))?1:0;
-	
-	//}
 }
 
 void Update_AudioSource(void)

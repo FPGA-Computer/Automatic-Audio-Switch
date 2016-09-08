@@ -38,6 +38,7 @@ void Draw_VU_Legend(void);
 void Draw_VUBar(int32_t Vin, int32_t Peak);
 void Draw_VUBars(void);
 void Spectrum(void);
+void Plot_SpectrumBin(uint8_t Value, uint8_t X);
 void Plot_Spectrum(void);
 void Blank_Spectrum(void);
 
@@ -46,6 +47,9 @@ enum Audio_Ch
 
 enum Audio_Loudness
 { Audio_None=0, Audio_Sporadic, Audio_Detect, Audio_Loud };
+
+enum Plot_VU
+{ Plot_Average, Plot_Peak};
 
 #define AUDIO_LOUDNESS_MASK Audio_Loud
 #define AUDIO_LOUDNESS_BITS 2
@@ -83,8 +87,8 @@ typedef struct
 		int16comp_t fft_data[ADC_BLOCK_SIZE];	
 	  uint8_t LCD_Buffer[SPECTRUM_ROWS][LCD_MAX_X];	
 	};
-	uint32_t fft_mag[ADC_BLOCK_SIZE/2];
-} FFT_t;
+	uint8_t fft_mag[ADC_BLOCK_SIZE/2];
+} PlotData_t;
 
 extern Audio_t Audio_Data;
 extern const uint32_t dB_Table[];

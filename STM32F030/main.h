@@ -68,11 +68,11 @@ enum Display_Mode
 #define TICK_RELOAD						(ADC_DMA_IRQ_RATE/SCREEN_REFRESH_RATE)
 
 #define AUDIO_TIMEOUT					1000
-#define LOUDNESS_TIMEOUT			1500
+#define LOUDNESS_TIMEOUT			1000
 #define AUDIO_COUNTDOWN_TH		(AUDIO_TIMEOUT/2)				
 
 #define AUDIO_THRESHOLD 			0x94L
-#define LOUDNESS_THRESHOLD		0x3800
+#define LOUDNESS_THRESHOLD		0x005F8E
 
 extern uint32_t Prev_Time;
 extern uint8_t Ticks;
@@ -122,5 +122,12 @@ extern uint8_t Ticks;
 #define SPECTRUM_END			MIN(LCD_MAX_X,(ADC_BLOCK_SIZE/2-SPECTRUM_START)*SPECTRUM_WIDTH)
 
 #undef SPECTRUM_AUTOSCALE
+
+#define SCALE_VU					4
+#define SCALE_SPECTRUM		8
+
+#define BITMAP_PEAK				0x03
+#define BITMAP_VU					0xaa
+#define BITMAP_SPECTRUM		0xff
 
 #endif
