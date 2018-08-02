@@ -3,7 +3,7 @@
 This is the repository for this project.
 
 Project page:
-https://hackaday.io/project/12133-automatic-audio-source-switching
+http://hw-by-design.blogspot.com/2018/08/automatic-audio-source-switching.html
 
 Schematic tool: Eagle CAD 6.5.0
 3D modelling: Sketchup 14.1 2014
